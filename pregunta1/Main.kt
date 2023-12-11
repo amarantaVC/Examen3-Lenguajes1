@@ -74,6 +74,9 @@ class Cola<T> : Secuencia<T> {
 class Grafo {
     private val adyacencias: MutableMap<Int, MutableList<Int>> = mutableMapOf()
 
+    val numV: Int
+        get() = adyacencias.keys.size
+
     fun agregarArista(origen: Int, destino: Int) {
         adyacencias.getOrPut(origen) { mutableListOf() }.add(destino)
         adyacencias.getOrPut(destino) { mutableListOf() }.add(origen)
@@ -85,24 +88,55 @@ class Grafo {
 }
 
 // Definición de la clase abstracta Busqueda
-abstract class Busqueda(val grafo: Grafo) {
-    abstract fun buscar(D: Int, H: Int): Int
+abstract class Busqueda(var grafo: Grafo) {
+    abstract var sec: Secuencia<Int>
+
+    /**
+     * Función que determina el número de vértices explorados
+     * en la búsqueda de un vértice, partiendo desde otro
+     * Args:
+     *    D (Int): Vértice de partida
+     *    H (Int): Vértice buscado
+     * Retorna:
+     *    Int: Número de vértices explorados en la búsqueda, si no
+     *    encuentra el vértice, retorna -1
+     */
+    fun buscar(D: Int, H: Int): Int {
+        val maxVertex = grafo.numV
+        val color = IntArray(maxVertex)
+        var u: Int
+        var count: Int = 0
+
+        color[D] = 1
+        sec.agregar(D)
+
+        while (!(sec.vacio())) {
+            u = sec.remover()
+            count++
+            if (u == H) {
+                return count
+            }
+            grafo.obtenerNodosAdyacentes(u).forEach {
+                if (it < maxVertex && color[it] == 0) {
+                    color[it] = 1
+                    sec.agregar(it)
+                }
+            }
+        }
+
+        return -1
+    }
 }
+
 
 // Implementación de la clase concreta DFS
 class DFS(grafo: Grafo) : Busqueda(grafo) {
-    override fun buscar(D: Int, H: Int): Int {
-        // Implementación de la búsqueda DFS aquí
-        return 0
-    }
+    override var sec: Secuencia<Int> = Pila<Int>()
 }
 
 // Implementación de la clase concreta BFS
 class BFS(grafo: Grafo) : Busqueda(grafo) {
-    override fun buscar(D: Int, H: Int): Int {
-        // Implementación de la búsqueda BFS aquí
-        return 0
-    }
+    override var sec: Secuencia<Int> = Cola<Int>()
 }
 
 
