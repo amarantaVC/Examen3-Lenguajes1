@@ -1,0 +1,19 @@
+/home/amaranta/Lenguajes1/Examen3-Lenguajes1/pregunta2/vectores.e:8
+<0037>:: a type is expected here
+function producto_punto(vector1, vector2)
+                               ^
+
+
+--- Defined Words ---
+EU4
+EU4_1
+EU4_1_0
+CONSOLE
+UNIX
+LINUX
+X86_64
+BITS64
+LONG64
+E64
+EUI
+-------------------
