@@ -1,6 +1,6 @@
 """
 CI3641 - LENGUAJES DE PROGRAMACION I
-EXAMEN3 - PREGUNTA 4
+EXAMEN3 - PREGUNTA 7
 AMARANTA VILLEGAS 16-11247
 Velocista.py : programa que permita calcular valores para wadefoc(n) de la forma más
 eficiente posible, para valores lo más grandes posibles de n.
